@@ -12,7 +12,8 @@ def read_input(filename, verbose=0):
 
 	Requires:
 	- file to be in current working directory
-	- each line of input file to be an integer without whitespace
+	- expects each line to be in a certain format
+		"<positive_digit>-<positive_digit> <letter>: <string>"
 	"""
 	
 	data = {}
