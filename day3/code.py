@@ -2,7 +2,8 @@
 """
 Advent of Code Problem 3
 
-How many trees are in your path
+Part1: How many trees are in your path
+Part2: Product of trees in path for 5 different sled routes
 
 """
 import math
