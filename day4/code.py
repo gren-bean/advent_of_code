@@ -150,8 +150,6 @@ def parse_input(data):
 			for e in entries:
 				kv = e.split(':') 
 				parsed_data[unique_id][kv[0]] = kv[1]
-	# Debug printing
-	# for d in parsed_data: print(parsed_data[d])
 	return parsed_data
 
 def check_fields(data):
@@ -169,10 +167,6 @@ def check_fields(data):
 					# print(f"Invalid key found: {k}")
 					break
 			if valid: passport_count += 1
-		# else:
-		# 	print(f"\nInvalid passport:")
-		# 	for k in data[d]:
-		# 		print(f"{k}:{data[d][k]}")		
 	return passport_count
 
 def check_fields_strict(data,verbose=0):
@@ -215,8 +209,10 @@ def part2(verbose=0):
 
 
 def main(verbose=0):
-	# part1(verbose=verbose)
+	print("part1:")
+	part1(verbose=verbose)
+	print("\npart2:")
 	part2(verbose=verbose)
 
 if __name__ == "__main__":
-    main(verbose=1)
+    main(verbose=0)
