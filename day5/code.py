@@ -33,7 +33,7 @@ def parse_input(data,verbose=0):
 			str_bin = line.translate(line.maketrans('FBRL', '0110'))
 			parsed_data[int(str_bin[:7],base=2) * 8 + int(str_bin[-3:],base=2)] = \
 					{"seat":line,"row":int(str_bin[:7],base=2),"col":int(str_bin[-3:],base=2)}
-			if verbose==1:
+			if verbose >= 1:
 				print(f"\n{line} ==> {str_bin}")
 				print({"seat":line,"row":int(str_bin[:7],base=2),"col":int(str_bin[-3:],base=2)})
 	return parsed_data

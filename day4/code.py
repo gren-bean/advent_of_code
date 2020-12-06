@@ -183,12 +183,12 @@ def check_fields_strict(data,verbose=0):
 				for k in keys:
 					if check_field(k,data[d][k]) == False:
 						# Debug
-						if verbose == 1:
+						if verbose >= 1:
 							print(f"INVALID FIELD: ({k}:{data[d][k]})\n")
 						valid = False
 						break
 				if valid: 
-					if verbose == 1:
+					if verbose >= 1:
 						print_passport(data[d])
 					passport_count += 1
 	return passport_count

@@ -30,7 +30,7 @@ def read_input(filename, verbose=0):
 			data[unique_id] = {'passwd': passwd, 'letter':letter, 
 								'min':int(min_letter), 'max':int(max_letter)}
 			unique_id += 1
-			if verbose == 1:
+			if verbose >= 1:
 				print(f"{min_letter}-{max_letter} {letter}: {passwd}")
 	return data
 
@@ -43,9 +43,9 @@ def part1(verbose=0):
 		letter_count = data[i]['passwd'].count(f"{data[i]['letter']}")
 		if letter_count >= data[i]['min'] and letter_count <= data[i]['max']:
 			valid_passwds += 1
-			if verbose == 1:
+			if verbose >= 1:
 				print(f"[{raw_count}] VALID password: {data[i]['passwd']} | {data[i]['letter']},{data[i]['min']}-{data[i]['max']}")
-		elif verbose == 1:
+		elif verbose >= 1:
 			print(f"[{raw_count}] NON-VALID password: {data[i]['passwd']} | {data[i]['letter']},{data[i]['min']}-{data[i]['max']}")
 		raw_count += 1
 	print(f"There were {valid_passwds} valid passwords in the input.")
@@ -59,14 +59,14 @@ def part2(verbose=0):
 		if (data[i]['passwd'][data[i]['min']-1] == data[i]['letter'])\
 			and (data[i]['passwd'][data[i]['max']-1] != data[i]['letter']):
 			valid_passwds += 1
-			if verbose == 1:
+			if verbose >= 1:
 				print(f"[{raw_count}] VALID password: {data[i]['passwd']} | {data[i]['letter']},{data[i]['min']}-{data[i]['max']}")
 		elif (data[i]['passwd'][data[i]['min']-1] != data[i]['letter'])\
 			and (data[i]['passwd'][data[i]['max']-1] == data[i]['letter']):
 			valid_passwds += 1
-			if verbose == 1:
+			if verbose >= 1:
 				print(f"[{raw_count}] VALID password: {data[i]['passwd']} | {data[i]['letter']},{data[i]['min']}-{data[i]['max']}")
-		elif verbose == 1:
+		elif verbose >= 1:
 			print(f"[{raw_count}] NON-VALID password: {data[i]['passwd']} | {data[i]['letter']},{data[i]['min']}-{data[i]['max']}")
 		raw_count += 1
 	print(f"There were {valid_passwds} valid passwords in the input.")
