@@ -28,7 +28,7 @@ Solved in Python!
   - Ultimately unused, but interesting read is "best way to count char occurences in string" in ref[4]
 
 ## References
-[1] https://stackoverflow.com/questions/41535571/how-to-explain-the-str-maketrans-function-in-python-3-6/41536036
-[2] https://discuss.python.org/t/str-replace-of-a-set-of-characters/2758/3
-[3] https://stackoverflow.com/questions/13902805/list-of-all-unique-characters-in-a-string
-[4] https://stackoverflow.com/questions/613183/how-do-i-sort-a-dictionary-by-value
+[1] https://stackoverflow.com/questions/41535571/how-to-explain-the-str-maketrans-function-in-python-3-6/41536036  
+[2] https://discuss.python.org/t/str-replace-of-a-set-of-characters/2758/3  
+[3] https://stackoverflow.com/questions/13902805/list-of-all-unique-characters-in-a-string  
+[4] https://stackoverflow.com/questions/613183/how-do-i-sort-a-dictionary-by-value  
