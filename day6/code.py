@@ -1,6 +1,6 @@
 
 """
-Advent of Code Problem 4
+Advent of Code Problem 6
 
 Part1: Sum of unique questions for each group answered yes.
 Part2: Sum of questions for each group everyone answered yes.

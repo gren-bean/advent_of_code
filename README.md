@@ -1,7 +1,7 @@
 # advent_of_code2020
-Advent of Code 2020
-
-Solved in Python!
+Advent of Code 2020 Solutions in Python!
+Author: Ben Greene
+December 2020
 
 ## Todo:
 - focus more on OO style for additional problems like the passport-parsing ones.
@@ -26,6 +26,8 @@ Solved in Python!
   - Unique characters in a list like `''.join(set('aaabcabccd'))`, ref[3].
   - For part2, we add the number of persons in each group as the only additional information we need. 
   - Ultimately unused, but interesting read is "best way to count char occurences in string" in ref[4]
+- **Day 7**
+  - Part 1 is perfect use case scenario for a practical implication of **Graphs**. Generate a *Directed Graph* represented by an *adjcency list* (list of linked lists). We then find all starting points that have a path to our node representing *shiny gold*.
 
 ## References
 [1] https://stackoverflow.com/questions/41535571/how-to-explain-the-str-maketrans-function-in-python-3-6/41536036  
