@@ -15,7 +15,6 @@ def read_input(filename, verbose=0):
 	Requires:
 	- file to be in current working directory
 	"""
-	
 	data = []
 	with open(filename,"r") as f:
 		lines = f.readlines()

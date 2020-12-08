@@ -126,9 +126,7 @@ def read_input(filename, verbose=0):
 
 	Requires:
 	- file to be in current working directory
-	- each line of input file to be an integer without whitespace
 	"""
-	
 	data = []
 	with open(filename,"r") as f:
 		lines = f.readlines()
