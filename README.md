@@ -27,8 +27,10 @@ December 2020
   - For part2, we add the number of persons in each group as the only additional information we need. 
   - Ultimately unused, but interesting read is "best way to count char occurences in string" in ref[4]
 - **Day 7**
-  - Part 1 is perfect use-case for an implementation via **Graphs**. Generate a *Directed Graph* represented by an *adjcency list* (list of linked lists) where each color is a node and all sub-nodes are colors that can be stored in it. We then find all starting nodes that have a path to our node representing *shiny gold*. We can use either BFS ref[5] or DFS ref[6].
-    - Complexity will be `O( |V| * (|V|+|E|) )`
+  - Part 1 is perfect use-case for an implementation via **Graphs**. Generate a *Directed Graph* represented by an *adjcency list* (list of linked lists) where each color is a node and all sub-nodes are colors that can be stored in it. 
+  	1. Reverse the graph
+  	2. Run DFS on the reversed graph starting from "Shiny Gold" node and count number of visited nodes, this is the answer. Note, either BFS ref[5] or DFS ref[6] would work.
+    3. Complexity will be `O(|V|+|E|)`
   - See ref[7] for removing punctuation from a string
 
 ## References
