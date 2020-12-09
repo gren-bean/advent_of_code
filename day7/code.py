@@ -4,7 +4,7 @@ Advent of Code Problem 7
 
 Part1: You have a shiny gold bag. If you wanted to carry it in at least one other bag, how many different bag colors would be valid for the outermost bag? (In other words: how many colors can, eventually, contain at least one shiny gold bag?)
 
-Part2: not yet started
+Part2: Bags contained in Shiny_Gold Bag. The actual rules have a small chance of going several levels deeper than this example; be sure to count all of the bags, even if the nesting becomes topologically impractical!
 
 """
 import string, re
@@ -57,6 +57,7 @@ class color_graph():
 		return visited_nodes
 
 	def dfs_reverse_graph(self,start_node):
+		"""DFS on Reversed Graph"""
 		# Initialize 'visited variable'
 		visited_nodes = 1
 		for v in self.Rgraph:
@@ -80,6 +81,20 @@ class color_graph():
 		for v in self.graph:
 			for u in self.graph[v]:
 				self.Rgraph[u][v] = self.graph[v][u]
+
+	def search_till_end(self, start_node):
+		"""
+		Part 2 answer - Search function implemented recursively
+
+		We receive the hint that the order may be "topologically impractical"
+		This means we will not track visited nodes, and may visit a node
+		several times.
+		"""
+		total_bags = 1  # Will need to subtract 1 from final
+		for u in self.graph[start_node]:
+			total_bags = total_bags + self.graph[start_node][u] * self.search_till_end(u)
+		return total_bags
+
 
 def read_input(filename, verbose=0):
 	"""
@@ -106,11 +121,14 @@ def part1(verbose=0):
 def part2(verbose=0):
 	input_file = "input.txt"
 	data = read_input(input_file, verbose=verbose)
-	parsed_data = color_graph(data)	
+	graph = color_graph(data)	
+	answer = graph.search_till_end("shiny gold")
+	print(f"Bags needed for Shiny Gold Bag: {answer-1}")
+
 
 def main(verbose=0):
-	part1(verbose=verbose)
-	# part2(verbose=verbose)
+	# part1(verbose=verbose)
+	part2(verbose=verbose)
 
 if __name__ == "__main__":
     main(verbose=0)
