@@ -3,8 +3,8 @@ Advent of Code 2020 Solutions in Python!
 Author: Ben Greene
 December 2020
 
-## Todo:
-- focus more on OO style for additional problems like the passport-parsing ones.
+## Goals:
+- Focus on scalable solutions that would work with massive inputs. i.e., be computationally efficient.
 
 ## Tips & Tricks to remember:
 
@@ -21,17 +21,23 @@ December 2020
 - **Day 5**: 
   - The hint was "binary partitioning". This problem is essentially converting a string into two binary numbers' base 10 equivalent. This is done via python's `int(str,base=2)`
   - Translating a string with python: ```python's str.translate(str.maketrans('old_chars','new_chars'))```, ref[1-2].
+    - See ref[7] for removing punctuation from a string
 - **Day 6**:
   - For part1, we want unique characters out of each group. This is done via building a string and then collapsing it.
   - Unique characters in a list like `''.join(set('aaabcabccd'))`, ref[3].
   - For part2, we add the number of persons in each group as the only additional information we need. 
   - Ultimately unused, but interesting read is "best way to count char occurences in string" in ref[4]
 - **Day 7**
-  - Part 1 is perfect use-case for an implementation via **Graphs**. Generate a *Directed Graph* represented by an *adjcency list* (list of linked lists) where each color is a node and all sub-nodes are colors that can be stored in it. 
+  - Part 1 is a use-case for an implementation via **Graphs**. Generate a *Directed Graph* represented by an *adjcency list* (list of linked lists) where each color is a node and all sub-nodes are colors that can be stored in it. 
   	1. Reverse the graph
   	2. Run DFS on the reversed graph starting from "Shiny Gold" node and count number of visited nodes, this is the answer. Note, either BFS ref[5] or DFS ref[6] would work.
     3. Complexity will be `O(|V|+|E|)`
-  - See ref[7] for removing punctuation from a string
+- **Day 8**
+  - A scalable solution for Day 8 Part 2 can be implemented via a **Graph**, with each instruction being a "node", and edges representing program flow. Because of the problem formation, it is a *directed graph*, where each node can have multiple edges in, but only 1 edge out. With this knowledge, a solution for Part 2 can be found as such:
+    1. Find all "nop" and "jmp" instructions in the loop. We know the corrupted line must be one of these because the problem stated only a single instruction is faulty.
+    2. Build a reverse graph, and do a DFS search starting from the "END" to get a list of all operations that will allow the program to run to completion.
+    3. For each `jmp` and `nop` instruction from step 1, check if swapping its type will make the next instruction be one in the set of instructions discovered in step 2. 
+    4. Correct this line and run the program to completion to get final accumulator value.
 
 ## References
 [1] https://stackoverflow.com/questions/41535571/how-to-explain-the-str-maketrans-function-in-python-3-6/41536036  
