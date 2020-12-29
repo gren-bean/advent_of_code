@@ -4,7 +4,8 @@ Author: Ben Greene
 December 2020
 
 ## Goals:
-- Focus on scalable solutions that would work with massive inputs. i.e., be computationally efficient.
+- refresh python
+- scalable solutions that would work with large inputs
 
 ## Tips & Tricks to remember:
 
@@ -38,6 +39,9 @@ December 2020
     2. Build a reverse graph, and do a DFS search starting from the "END" to get a list of all operations that will allow the program to run to completion.
     3. For each `jmp` and `nop` instruction from step 1, check if swapping its type will make the next instruction be one in the set of instructions discovered in step 2. 
     4. Correct this line and run the program to completion to get final accumulator value.
+- **Day 9**
+  - The key is that the integer must be the sum of 2 (and only 2) of the previous 25 numbers, and that the 2 numbers will be different.
+  - This is an application of the Twosum Algorithm, a special case of the Subset Sum problem that can be solved in linear time (ref[8]) 
 
 ## References
 [1] https://stackoverflow.com/questions/41535571/how-to-explain-the-str-maketrans-function-in-python-3-6/41536036  
@@ -47,3 +51,4 @@ December 2020
 [5] https://en.wikipedia.org/wiki/Breadth-first_search  
 [6] https://en.wikipedia.org/wiki/Depth-first_search  
 [7] https://stackoverflow.com/questions/265960/best-way-to-strip-punctuation-from-a-string  
+[8] https://en.wikipedia.org/wiki/Subset_sum_problem  
