@@ -41,7 +41,8 @@ December 2020
     4. Correct this line and run the program to completion to get final accumulator value.
 - **Day 9**
   - The key is that the integer must be the sum of 2 (and only 2) of the previous 25 numbers, and that the 2 numbers will be different.
-  - This is an application of the Twosum Algorithm, a special case of the Subset Sum problem that can be solved in linear time (ref[8]) 
+  - Part1 is an application of the Twosum Algorithm, a special case of the Subset Sum problem that can be solved in linear time (ref[8]) 
+  - Part2 was solved with a sliding window, maintained by 2 'pointers'. This is only possible because there are no negative numbers
 
 ## References
 [1] https://stackoverflow.com/questions/41535571/how-to-explain-the-str-maketrans-function-in-python-3-6/41536036  
