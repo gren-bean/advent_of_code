@@ -10,6 +10,7 @@ December 2020
 ## Tips & Tricks to remember:
 
 - Debugging output is controlled by a `verbose` flag, set to `0/No debug` as a default. Values of `verbose=1` and `verbose=2` are accepted with the higher value increasing verbosity.
+
 - **Day 1**:
   - Many clever possibilities, but the solutions in this repo are simple loops. Input was small so no need to do anything special.
 - **Day 2**:
@@ -40,9 +41,14 @@ December 2020
     3. For each `jmp` and `nop` instruction from step 1, check if swapping its type will make the next instruction be one in the set of instructions discovered in step 2. 
     4. Correct this line and run the program to completion to get final accumulator value.
 - **Day 9**
-  - The key is that the integer must be the sum of 2 (and only 2) of the previous 25 numbers, and that the 2 numbers will be different.
-  - Part1 is an application of the Twosum Algorithm, a special case of the Subset Sum problem that can be solved in linear time (ref[8]) 
+  - Part1: is an application of the Twosum Algorithm, a special case of the Subset Sum problem that can be solved in linear time (ref[8]). The key is that the integer must be the sum of 2 (and only 2) of the previous 25 numbers, and that the 2 numbers will be different and positive.
   - Part2 was solved with a sliding window, maintained by 2 'pointers'. This is only possible because there are no negative numbers
+- **Day 10**
+  - Part1: Looks like a simplified version of the *Hamiltonian Path* problem (ref[9]). Based on the provided assumptions, the next adapter needs to always be the one closest in value to the current adapter (because we can't go down). We can do this via a simple sorted list of the adapter values.
+  - Part2: The best way to solve is as a Graph problem. Adapters are represented as nodes, and there are directed edges to all adapters with values 1, 2, or 3 higher. The solution is to find all paths from the first node of "0" to last node 3 higher than the greatest adapter. 
+    - The solution uses the idea of tracking a count for each node of the possible unique paths to goal while running a DFS search, which is a summation of the counts of all its neighbors. The count is initialized to "1" for the goal node, and "0" for all other nodes.
+    - This only works because the graph is a Directed Acyclic Graph (DAG) with the provided constraints.
+- **Day 11**
 
 ## References
 [1] https://stackoverflow.com/questions/41535571/how-to-explain-the-str-maketrans-function-in-python-3-6/41536036  
@@ -53,3 +59,4 @@ December 2020
 [6] https://en.wikipedia.org/wiki/Depth-first_search  
 [7] https://stackoverflow.com/questions/265960/best-way-to-strip-punctuation-from-a-string  
 [8] https://en.wikipedia.org/wiki/Subset_sum_problem  
+[9] https://en.wikipedia.org/wiki/Hamiltonian_path  
