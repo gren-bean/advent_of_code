@@ -46,8 +46,9 @@ December 2020
 - **Day 10**
   - Part1: Looks like a simplified version of the *Hamiltonian Path* problem (ref[9]). Based on the provided assumptions, the next adapter needs to always be the one closest in value to the current adapter (because we can't go down). We can do this via a simple sorted list of the adapter values.
   - Part2: The best way to solve is as a Graph problem. Adapters are represented as nodes, and there are directed edges to all adapters with values 1, 2, or 3 higher. The solution is to find all paths from the first node of "0" to last node 3 higher than the greatest adapter. 
-    - The solution uses the idea of tracking a count for each node of the possible unique paths to goal while running a DFS search, which is a summation of the counts of all its neighbors. The count is initialized to "1" for the goal node, and "0" for all other nodes.
-    - This only works because the graph is a Directed Acyclic Graph (DAG) with the provided constraints.
+    - The solution uses a count for each node. The count is of unique paths to goal, and is a summation of the counts for all of the node's children neighbors. The count is initialized to "1" for the goal node, and "0" for all other nodes.
+    - Given the above, a DFS search solves the problem. The solution is the final count for the starting node.
+    - This only works because the graph is a Directed Acyclic Graph (DAG).
 - **Day 11**
 
 ## References
