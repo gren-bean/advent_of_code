@@ -52,6 +52,7 @@ December 2020
     - This only works because the graph is a Directed Acyclic Graph (DAG).
 - **Day 11**
   - Part1: This reminds me of *Conway's Game of Life* (ref[10]) with it's simple rules and evolving grid. Solved via a modular implementation. Converting the cells from characters to integers simplified implementation {0:Empty cell, 1:Occupied Cell, -1:Ground/Static cell}.
+  - Part2: Because of the modular construction, only update needed was to the `update_cell()` function
 
 ## References
 [1] https://stackoverflow.com/questions/41535571/how-to-explain-the-str-maketrans-function-in-python-3-6/41536036  
