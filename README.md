@@ -85,26 +85,10 @@ I am sharing in case these help anyone!
 #### Day 13
 **Part1**: This problem is some simple modular arithmetic. It is merely a warm-up for Part2 where the real challenge lies.
 s
-**Part2**: Some research leads us to the *Chinese Remainder Theorem* (**ref[14]**). Because our input meets the constraint of all `n_1 ... n_k` being **coprime** to one another, we can use this to solve the problem. Because of the Number theory and difficulty of this this explanation is more detailed than other days. 
-    - Trying to find some time `t` such that: Bus `k` at index `i` departs at a time `t + i`
-    ```
-    t+i (mod k) = 0
-    t % k = -i
-    t % k = k-i, modular arithmetic
-    index = (k - i) % k)  
-    ```
-    - Using this knowledge, we can express the problem as a *system of modular equations*, where we are trying to solve congruence such that `t (mod busID) = i (mod busID)`, for `i = 0, <offset of 2nd bus>, ... <offset of kth bus>`.
-    - *An alternative explanation*: Remember `busID` represents the "route-time", so a specific `busID` shows up every `busID` minutes. Therefore, our desired solution time `t` will be such that `t / busID` will give us offset `i` as *the number of minutes left until that specific bus shows up!* This is because we want each bus to arrive at time `t + i`.
-    - Given the above, the entire system of equations we are trying to solve will look something like:
-    ```
-    x ≅ a_1 (mod n_1)  ==>  t ≅ i_1 (mod busID_1)
-    x ≅ a_2 (mod n_2)  ==>  t ≅ i_2 (mod busID_2)
-    ...
-    x ≅ a_k (mod n_k)  ==>  t ≅ i_k (mod busID_k)
-    ```
-    - Where `t` is the solution we are looking for. 
-    - Where `i_k = index_of_bus % busID`. This is because the Chinese Remainder Theorem has the constraint `a_i < n_i`, and from **ref[14]**: *(if it were not the case, it would suffice to replace each `a_i` by the remainder of its division by `n_i`).*
-    - Note that for the above, `≅` represents **congruence**, which should not be confused with **equality**.
+**Part2**: Some research leads us to the *Chinese Remainder Theorem* (**ref[14]**). Because our input meets the constraint of all `n_1 ... n_k` being **coprime** to one another (in fact they were all print), it could be used to solve the problem. However, trying to implement this proved very difficult, and I'll admit my own limits here. Ultimately relied on reducing search space by incrementing our timestamp by the *Least Common Multiple* of evey bus_id (equivalent to route time) except for our current bus id. 
+    - For example, our starting bus_id was 19, so we know that our "magic timestamp" had to be some multiple of 19. So every loop we could iterate at least 19 seconds.
+    - Once we find a timestamp satisfying conditions for the first two buses (bus `#19` arriving at time `t` and bus `#41` arriving at time `t + 9`), the next timestamp has to be >= a multiple of the *Least Common Multiple* of 19 and 41 (=779). So we increase our time-step to 779.
+    - The above repeats, narrowing our searchspace but larger and larger steps, until we find a timestamp that meets our requirements.
 
 ## References
 [1] https://stackoverflow.com/questions/41535571/how-to-explain-the-str-maketrans-function-in-python-3-6/41536036  
@@ -123,5 +107,4 @@ s
 [14] https://en.wikipedia.org/wiki/Chinese_remainder_theorem#Existence_(constructive_proof)  
 
 ## Acknowledgements
-[day13] This video helped me, thank you!: https://www.youtube.com/watch?v=3oVWRPzT2JA  
-[...]
+todo

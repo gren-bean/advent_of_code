@@ -6,6 +6,13 @@ See Readme for details
 """
 import math
 
+def compute_lcm(a):
+    """Computes least common multiple"""
+    lcm = a[0]
+    for i in a[1:]:
+        lcm = lcm * i // math.gcd(lcm, i)
+    return lcm
+
 class solver():
     """
     Solves the problem
@@ -17,10 +24,11 @@ class solver():
         self.earliest = int(data[0])
         tmp = data[1].split(',')
         self.bus_schedule = []
-        self.bus_sequence = {}
+        self.bus_sequence = []
+        self.last_bus_min=len(tmp)
         for i in range(len(tmp)):
             if tmp[i] != "x": 
-                self.bus_sequence[i] = int(tmp[i])
+                self.bus_sequence.append((i,int(tmp[i])))
                 self.bus_schedule.append(int(tmp[i]))
 
 
@@ -59,30 +67,23 @@ class solver():
     def find_magic_timestamp(self):
         """Find first timestamp with a buses arriving in desired
         sequence. Uses Chinese Remainder Theorem Direct Construction"""
-        curr_time = self.bus_sequence[0]
-        run = True
-        print(self.bus_sequence)
-        ids = []
-        fullProduct = 1
-        for i in range(len(data[1])):
-            item = data[1][i]
-            if item != 'x':
-                k = int(item)
-                i = i % k
-                ids.append(((k-i)%k,k))
-                fullProduct *= k
+        
+        print(f"Bus Sequence: {self.bus_sequence}")
+        # Start at timestamp zerp
+        timestamp = 0
+        matched_buses = [self.bus_sequence[0][1]]
+        while True:
+            # Minimizes search space by jumping distances of least common multiples
+            timestamp += compute_lcm(matched_buses)
+            print(f"Current Timestamp: {timestamp}")
+            for arrival_min, bus_id in self.bus_sequence:
+                if (timestamp + arrival_min) % bus_id == 0:
+                    if bus_id not in matched_buses:
+                        matched_buses.append(bus_id)
+            if len(matched_buses) == len(self.bus_sequence):
+                break
 
-        total = 0
-        for i,k in ids:
-            partialProduct = fullProduct // k
-
-            inverse = mod_inverse(partialProduct,k)
-            assert (inverse * partialProduct) % k == 1
-
-            term = inverse * partialProduct * i
-            total += term
-
-        return total % fullProduct
+        return timestamp
 
 
 def read_input(filename, verbose=0):
@@ -111,7 +112,9 @@ def part2(verbose=0):
     input_file = "input.txt"
     data = read_input(input_file, verbose=verbose)      
     s = solver(2, data, verbose=verbose)
-    s.find_magic_timestamp()    
+    r = s.find_magic_timestamp()
+    print(f"Solution to part 2 is time: {r}")
+
 
 def main(verbose=0):
     # part1(verbose=verbose)
