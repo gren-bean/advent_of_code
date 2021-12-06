@@ -1,4 +1,4 @@
-# advent_of_code2020
+# Advent of Code 2020
 Advent of Code 2020 Solutions in Python!
 Author: Ben Greene
 December 2020
