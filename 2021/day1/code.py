@@ -38,6 +38,7 @@ def part1(verbose=False):
 
 
 def part2(verbose=False):
+	
 
 if __name__ == "__main__":
     part1(verbose=False)
