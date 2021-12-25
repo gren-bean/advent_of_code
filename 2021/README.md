@@ -22,3 +22,6 @@ These are my notes on solving Advent of Code 2021. The challenges were not compl
 
 ### Day 4
 - Day 4 lends itself to defining a few objects to represent the bingo board and subsequent checks we may want to do on a bingo board.
+
+### Day 5
+- Simple 2-D coordinate math

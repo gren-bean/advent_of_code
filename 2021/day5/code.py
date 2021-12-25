@@ -1,95 +1,106 @@
 """
 Advent of Code 2021 Problem 5
 
-Part1: Find first winning bingo board based on sequence of numbers
-Part2: TBD
+Part1: Find the number of points where at least two lines overlap
+Part2: Same as part1, but including diagonal lines
 """
 
-class bingo_board():
-    """
-    An object representing a bingo board with N x N spots
 
-    The board is represented as a list of lists
-    """
+class grid_map():
+    """Object to represent a 2-D grid map that is N x N in size"""
+    
+    def __init__(self, size=1000, diagonals_on=False,verbose=False):
+        """Build N x N grid"""
+        self.N = size
+        self.grid = [[0 for j in range(self.N)] for i in range(self.N)]
+        self.verbose = verbose
+        self.diagonals_on = diagonals_on
 
-    def __init__(self, nums, N=5):
-        """
-        Create board
-
-        :param nums: (list of str) sequential list of nums that read left -> right and top -> down. Must be of length N x X. 
-        :param N: (int) board size
-        """
-        # Error Check        
-        if len(nums) != (N * N):
-            raise Exception(f'Bingo board passed {len(nums)} numbers to make an {N}x{N} board!')
-        
-        # Build Board
-        self.board = []
-        self.board_status = [[0 for i in range(N)] for i in range(N)]
-        self.size = N
-        for i in range(N):
-            self.board.append(nums[i*self.size:(i+1)*self.size])
+        # Stepper object for diagonal line updates to grid
+        self.stepper = {'NW':(-1,-1), 'SW':(-1,1), 'NE':(1,-1), 'SE':(1,1)}
 
 
     def __str__(self):
-        """Represents board as a printable string object"""
-        output = ''
-        for i in range(self.size):
-            output = output + ' '.join(self.board[i]) + '\n'
-        output = output + '='*self.size*2 + '\n'
-        for i in range(self.size):
-            output = output + ' '.join([str(num) for num in self.board_status[i]]) + '\n'
-        
+        """Returns string representation to print"""
+        output = ""
+        for i in range(self.N):
+            output = output + ' '.join([str(j) for j in self.grid[i]]) + '\n'
         return output
 
 
-    def check_for_bingo(self):
-        """Checks for bingo and returns True/False"""
-        for i in range(self.size):
-            # Check for Horizontal or Vertical Win
-            if sum(self.board_status[i]) == self.size or \
-            sum([self.board_status[j][i] for j in range(self.size)]) == self.size:
-                return True
-
-
-    def update(self,pick):
+    def find_direction(self, line_seg):
         """
-        Checks board for number, and updates status. Then checks for a win
+        Finds direction of a Diagonal line segment at 45 degree angle
 
-        :returns: True/False on bingo
+        :param line_seg: (tuple of tuples) (X,Y) endpoints of line segment
+        :returns direction: (str) one of 'NE','SE','SW','NW', or 'unknown'
         """
-        # Update board
-        for row in range(self.size):
-            for col in range(self.size):
-                if self.board[row][col] == pick:
-                    self.board_status[row][col] = 1
-                    if self.check_for_bingo():
-                        return True
-        return False
+        if line_seg[0][0] > line_seg[1][0] and line_seg[0][1] > line_seg[1][1]:
+            return 'NW'
+        elif line_seg[0][0] > line_seg[1][0] and line_seg[0][1] < line_seg[1][1]:
+            return 'SW'
+        elif line_seg[0][0] < line_seg[1][0] and line_seg[0][1] > line_seg[1][1]:
+            return 'NE'
+        elif line_seg[0][0] < line_seg[1][0] and line_seg[0][1] < line_seg[1][1]:
+            return 'SE'
+        else:
+            return 'unknown'
 
+    def update(self, line_seg):
+        """
+        Updates grid with vertical or horizontal line
 
-    def calc_final_score(self, pick):
-        """Calculates answer per pre-defined rules
-
-        :param pick: (int) integer value of last pick
-        :returns final_score: (int) final score of board
+        :param line_seg: (tuple of tuples) (X,Y) endpoints of line segment
         """
 
-        # Sum of all unmarked numbers
-        answer = 0
-        for row in range(self.size):
-            for col in range(self.size):
-                if self.board_status[row][col] == 0:
-                    answer += int(self.board[row][col])
-        # Multiply sum by most recent pick
-        answer *= pick
-        return answer
+        # Vertical line - X's are the same
+        if line_seg[0][0] == line_seg[1][0]:
+            start = min((line_seg[0][1], line_seg[1][1]))
+            end = max((line_seg[0][1], line_seg[1][1])) + 1
+            # Move along grid vertically, with endpoints inclusive
+            for i in range(start, end, 1):
+                self.grid[i][line_seg[0][0]] += 1
+
+        # Horizontal line - Y's are the same
+        elif line_seg[0][1] == line_seg[1][1]:
+            start = min((line_seg[0][0], line_seg[1][0]))
+            end = max((line_seg[0][0], line_seg[1][0])) + 1
+            # Move along grid horizontally, with endpoints inclusive
+            for i in range(start, end, 1):
+                self.grid[line_seg[0][1]][i] += 1
+
+        # Diagonal lines - Line that is NOT horizontal or vertical
+        # Problem description specifies ONLY 45-degree lines
+        elif not self.diagonals_on:
+            if self.verbose: print('WARNING: Line detected that is not horizontal or vertical')
+        else:
+            _dir = self.find_direction(line_seg)
+            _x = line_seg[0][0]
+            _y = line_seg[0][1]
+            self.grid[_y][_x] += 1
+            while _x != line_seg[1][0] or _y != line_seg[1][1]:
+                _x += self.stepper[_dir][0]
+                _y += self.stepper[_dir][1]
+                self.grid[_y][_x] += 1
+
+
+    def count_crosses(self, cutoff=2):
+        """
+        Counts places where at least 2 lines cross
+
+        :param cutoff: (int) minimum number of crosses
+        :returns cnt: (int) number of spots with crosses above cutoff
+        """
+        cnt = 0
+        for i in range(self.N):
+            for j in range(self.N):
+                if self.grid[i][j] >= cutoff: cnt += 1
+        return cnt
 
 
 def read_input(filename, verbose=False):
     """
-    Read in Input
-
+    Read in Input and do some basic parsing based on problem specifics
     Requires:
     - file to be in current working directory
    """ 
@@ -97,93 +108,50 @@ def read_input(filename, verbose=False):
     # Read file
     with open(filename,"r") as f:
         lines = f.readlines()
+
+    # Parse data
+    data = []  # List of tuples of tuples
+    for line in lines:
+        coords = line.split(' -> ')
+        if len(coords) < 2: continue
+
+        # Parse starting position
+        temp = coords[0].split(',')
+        start = (int(temp[0]),int(temp[1]))
     
-    return lines
+        # Parse stopping position
+        temp = coords[1].split(',')
+        stop = (int(temp[0]),int(temp[1]))
 
+        data.append((start,stop))
 
-def create_boards(data, N=5):
-    """
-    Creates bingo boards
-
-    :param N: (int) size of NxN bingo board
-    """
-    boards = {}  # Dictionary of bingo board objects
-    temp_board = []  # Holds temporary bingo board
-    unique_id = 1  # Unique numerical id of board 
-
-    for line in data[1:]:
-        if len(line.split()) > 2:
-            for item in line.split():
-                temp_board.append(item)
-            # Check for a complete board
-            if len(temp_board) >= (N*N):
-                boards[unique_id] = {
-                    'board':bingo_board(temp_board, N),
-                    'win_order':-1
-                }
-                unique_id += 1  # Increment unique ID
-                temp_board = [] # Clear temp board
-        else:
-            continue
-    return boards
+    return data
 
 
 def part1(verbose=False):
     input_file = "input.txt"
+    
+    # Data is a list of tuples of coordinates like:
+    #   [ ( (start_x, start_y), (stop_x, stop_y) ), ... ]
     data = read_input(input_file, verbose=verbose)
-    # Do stuff
+    g = grid_map()
+    for d in data:
+        g.update(d)
 
-    N = 5  # Size of bingo board
-    chosen_nums = [] # Selected bingo numbers
-    
-    chosen_nums = data[0].split(',') 
-    
-    # Dict of bingo board objects
-    boards = create_boards(data,N)
+    print(f'answer part1: {g.count_crosses()}')
 
-    for pick in chosen_nums:
-        if verbose: print(f'Number {pick} chosen!')
-        for b in boards:
-            if boards[b]['board'].update(pick):
-                print('BINGO!!! Winning Board:')
-                print(boards[b]['board'])
-                print(f"Final Score: {boards[b]['board'].calc_final_score(int(pick))}")
-                return
 
 
 def part2(verbose=False):
     input_file = "input.txt"
+    # Data is a list of tuples of coordinates like:
+    #   [ ( (start_x, start_y), (stop_x, stop_y) ), ... ]
+
     data = read_input(input_file, verbose=verbose)
-
-    N = 5  # Size of bingo board    
-    chosen_nums = data[0].split(',') # Selected bingo numbers
-    win_order = 0  # Tracks win order of boards
-    last_pick = 0
-    last_win = 0
-
-    # Dict of bingo board objects
-    boards = create_boards(data,N)
-
-    # Find board that wins last
-    for pick in chosen_nums:
-        if verbose: print(f'Number {pick} chosen!')
-        for b in boards:
-            if boards[b]['win_order'] < 0 and boards[b]['board'].update(pick):
-                boards[b]['win_order'] = win_order
-                last_pick = pick
-                last_win = win_order
-                win_order += 1
-
-    # Find last winning board
-    last_win = win_order - 1
-    for b in boards:
-        if boards[b]['win_order'] == last_win:
-            print(f'Board to win LAST, at number {last_win}')
-            print(boards[b]['board'])
-            print(f"Final score: {boards[b]['board'].calc_final_score(int(last_pick))}")
-
-
-    
+    g = grid_map(diagonals_on=True)
+    for d in data:
+        g.update(d)
+    print(f'answer part2: {g.count_crosses()}')
 
 
 if __name__ == "__main__":
