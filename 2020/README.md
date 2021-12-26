@@ -1,7 +1,6 @@
 # Advent of Code 2020
-Advent of Code 2020 Solutions in Python!
-Author: Ben Greene
-December 2020
+- Advent of Code 2020 Solutions in Python!
+- December 2020
 
 ## Welcome
 This Readme contains notes on the key concepts needed to complete Advent of Code 2020.
@@ -71,7 +70,7 @@ I am sharing in case these help anyone!
     - The solution uses a count for each node. The count is of unique paths to goal, and is a summation of the counts for all of the node's children neighbors. The count is initialized to "1" for the goal node, and "0" for all other nodes.
     - Given the above, a DFS search solves the problem. The solution is the final count for the starting node.
     - This only works because the graph is a Directed Acyclic Graph (DAG).
-\
+
 #### Day 11
 **Part1**: This reminds me of *Conway's Game of Life* (**ref[10]**) with it's simple rules and evolving grid. Solved via a modular implementation. Converting the cells from characters to integers simplified implementation {0:Empty cell, 1:Occupied Cell, -1:Ground/Static cell}.
 
