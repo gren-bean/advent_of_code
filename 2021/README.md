@@ -25,3 +25,7 @@ These are my notes on solving Advent of Code 2021. The challenges were not compl
 
 ### Day 5
 - Simple 2-D coordinate math
+
+### Day 6
+- Part 1 is simple list modification that can be brute-forced if every fish is a number and we maintain a list of fishes. *Note: Updated with a better solution described in Part2 notes*
+- Part 2 is the first challenge where we need to do an additional level of abstraction. The fish can be broken down into 6 different "generations" represented by a number, with new-born fish handled as an edge case for 2 cycles. From there, we rotate through the generations, updating the # of fish in each.
