@@ -75,7 +75,7 @@ class solver():
         while True:
             # Minimizes search space by jumping distances of least common multiples
             timestamp += compute_lcm(matched_buses)
-            print(f"Current Timestamp: {timestamp}")
+            if self.verbose > 0: print(f"Current Timestamp: {timestamp}")
             for arrival_min, bus_id in self.bus_sequence:
                 if (timestamp + arrival_min) % bus_id == 0:
                     if bus_id not in matched_buses:
@@ -117,7 +117,7 @@ def part2(verbose=0):
 
 
 def main(verbose=0):
-    # part1(verbose=verbose)
+    part1(verbose=verbose)
     part2(verbose=verbose)
 
 if __name__ == "__main__":
