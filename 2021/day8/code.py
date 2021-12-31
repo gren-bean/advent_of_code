@@ -204,9 +204,11 @@ def part2(verbose=False):
                     valid_map = True
                     break
 
+            # Once valid decoding is found, keep that one by breaking out
             if valid_map == True:
                 break
 
+        # Error handling, a mapping should always be found
         if valid_map == False:
             print(f"ERROR! No valid map found for signal - {data[d]['signal']}")
             return
