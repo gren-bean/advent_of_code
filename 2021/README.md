@@ -54,3 +54,10 @@ These are my notes on solving Advent of Code 2021. The challenges were only comp
         - Excellent reference on representing a dataset's *Central Tendency*
 
 ### Day 8
+- **Part1**: Simple warm up, really just meant to get you familiar with data format.
+- **Part2**: Required analyzing the specifics of the problem to come up with how to map each combination for digits that could not be uniquely identified by their signal length. The core strategy was:
+    1. Define the unique "position signatures" for the number signals of lengths 5 and 6.
+    2. Use the easily spotted digits of 1, 4, and 7 to narrow the decoding search space (for character position mappings) down to 8 possible mappings per signal (from an original of 5040 combinations). Given the small input, a more brute force approach could have skipped this first step, but narrowing the search space is likely a better way to do it.
+    3. For each signal, iterate through the 8 possible decodings to find the unique solution.
+    4. Apply that solution to decode the output.
+- *Note: Code for part 2 is quite messy! Tried to take advantage of python sets, but sorted lists were also a benefit*

@@ -1,8 +1,8 @@
 """
 Advent of Code 2021 Problem 7
 
-Part1: Align to same number with least overall change
-Part2: TBD
+Part1: Align to same number with least overall cost (cost is simply difference value)
+Part2: Align to same number with lease overall cost (cost is increasing arithmetic progression)
 """
 
 def read_input(filename, verbose=False):
