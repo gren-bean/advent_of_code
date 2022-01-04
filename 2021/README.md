@@ -61,3 +61,7 @@ These are my notes on solving Advent of Code 2021. The challenges were only comp
     3. For each signal, iterate through the 8 possible decodings to find the unique solution.
     4. Apply that solution to decode the output.
 - *Note: Code for part 2 is quite messy! Tried to take advantage of python sets, but sorted lists were also a benefit*
+
+### Day 9
+- **Part1**: Representing the 2-D grid as an adjaceny list graph made searching for the low points much easier. The lowest points are simply the points where all neighboring nodes are higher value.
+- **Part2**: Starting from each of the lowest points in Part1, we can run a breadth-first search out to the ridgelines (defined as nodes of height `9`) to determine basin sizes
