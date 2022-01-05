@@ -65,3 +65,6 @@ These are my notes on solving Advent of Code 2021. The challenges were only comp
 ### Day 9
 - **Part1**: Representing the 2-D grid as an adjaceny list graph made searching for the low points much easier. The lowest points are simply the points where all neighboring nodes are higher value.
 - **Part2**: Starting from each of the lowest points in Part1, we can run a breadth-first search out to the ridgelines (defined as nodes of height `9`) to determine basin sizes
+
+### Day 10
+- Both parts of this challenge were solved maintaining a FIFO queue of expected closing bracket characters for each line, using a python `list` 

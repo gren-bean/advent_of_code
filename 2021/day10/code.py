@@ -1,8 +1,8 @@
 """
 Advent of Code 2021 Problem 10
 
-Part1: TBD
-Part2: TBD
+Part1: Find lines with syntax errors, ignore incomplete lines
+Part2: Determine what is needed to finish incomplete lines
 """
 
 def read_input(filename, verbose=False):
@@ -19,10 +19,16 @@ def read_input(filename, verbose=False):
     return data
 
 
-def part1(verbose=False):
+def solution(verbose=False):
     input_file = "input.txt"
     data = read_input(input_file, verbose=verbose)
     
+    # Scoring
+    p1_scores = {')':3, ']':57, '}':1197, '>':25137}
+    p2_scores = {')':1, ']':2, '}':3, '>':4}
+    p1_final_score = 0
+    p2_final_score = []
+
     # Open Brackets paired w/ expected closing
     ob = {
         '(':')',
@@ -39,40 +45,39 @@ def part1(verbose=False):
     for line in data:
         expected = [] # List of expected closing brackets maintained as FIFO
         syntax_error = ''  # Character we found instead of expected char
-        try:
-            for c in line:
-                # Opening bracket character
-                if c in ob:
-                    expected.append(ob[c])
+        valid_line = True
+        for c in line:
+            # Opening bracket character
+            if c in ob:
+                expected.append(ob[c])
 
-                # Closing bracket character
-                elif c in cb:
-                    # Pop expected closing character using FIFO
-                    e = expected.pop()
-                    if c != e:
-                        syntax_error = c
-                        raise SyntaxError
+            # Closing bracket character
+            elif c in cb:
+                # Pop expected closing character using FIFO
+                e = expected.pop()
+                if c != e:
+                    if verbose: print(f"Syntax Error on line {line_num}, char '{c}' when '{e}' was expected.")
+                    p1_final_score += p1_scores[c]
+                    valid_line = False
+                    break
 
-                # Non-bracket character - skip it
-                else: continue
+            # Non-bracket character - skip it
+            else: continue
 
-
-            # Check that all closing brackets have been observed
-            # if len(expected) > 0:
-            #     e = expected.pop()
-            #     raise SyntaxError
-
-        # Catch syntax errors
-        except SyntaxError:
-            if verbose: print(f"Syntax Error on line {line_num}, error with char '{e}'")
-            syntax_errors.append(syntax_error)
+        # -------- PART 2 logic ----------
+        # Line is valid but incomplete incomplete
+        if valid_line:
+            s = 0
+            # Iterate back through FIFO queue
+            for i in reversed(range(len(expected))):
+                s = s*5 + p2_scores[expected[i]]
+            p2_final_score.append(s)
 
         line_num += 1  # increment line number
 
-    # Calculate score
-    scores = { ')':3, ']':57, '}':1197, '>':25137}
-    final_score = sum([scores[se] for se in syntax_errors])
-    print(f'part1 answer: {final_score}')
+    p2_final_score = sorted(p2_final_score)[int(len(p2_final_score)/2)]
+    print(f'part1 answer: {p1_final_score}')
+    print(f'part2 answer: {p2_final_score}')
 
 
 def part2(verbose=False):
@@ -83,5 +88,4 @@ def part2(verbose=False):
 
 
 if __name__ == "__main__":
-    part1(verbose=False)
-    part2(verbose=False)
+    solution(verbose=False)
