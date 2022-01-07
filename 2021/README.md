@@ -68,3 +68,7 @@ These are my notes on solving Advent of Code 2021. The challenges were only comp
 
 ### Day 10
 - Both parts of this challenge were solved maintaining a FIFO queue of expected closing bracket characters for each line, using a python `list` 
+
+### Day 11
+- Maintain the 10 x 10 grid of "octopuses" as nodes in a connected graph (similar to day 9)
+- For each step, all octopuses increase energy level by 1. From there, used an adaption of BFS to enact impact on neighboring nodes
