@@ -77,3 +77,4 @@ These are my notes on solving Advent of Code 2021. The challenges were only comp
 - **Part2**: Additional complexity is added by allowing **one** small cave to be visited **twice** within each path. This is solved by updating the node 'visited' attribute to an integer in order to track number of visits, and a flag variable `vtf` to track whether a small cave has been visited twice or not along the current path.
 
 ### Day 13
+- **Part1**: Simulated paper folding. The paper can be simulated by a 2-D matrix. And then folding is equivalent to cutting at the fold line, and slide. *Importantly, all of the folds involve folding the paper in half, which simplifies this problem significantly when compared to the case where non-equal folds are allowed.

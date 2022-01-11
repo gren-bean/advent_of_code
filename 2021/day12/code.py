@@ -103,6 +103,7 @@ class cave_graph():
 
     def find_all_paths(self):
         """Finds all paths from start -> end given certain constraints"""
+        
         # Reset graph
         self.num_paths = 0
         self.path = []
