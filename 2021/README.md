@@ -81,4 +81,12 @@ These are my notes on solving Advent of Code 2021. The challenges were only comp
 - **Part2**: Simple extension of part1.
 
 ### Day 14
-- Straightforward problem that involves counting unique occurences of a character in a string. This can be done with Python's `Collections` from the standard library.
+- Part1 could be brute-forced, but the exponential growth meant Part2 required a deeper understanding of the problem.
+- Expansion can be understood as follows:
+    - Each pair of letters expands into two different pairs. This can be visualized by thinking of a branching tree
+    - The possible letter pairs are finite
+- From this understanding, we can develop the following solution:
+    1. Start with a simple dictionary for every possible pair. Each pair has the current "count" (how many times it appears in the current polymer chain), and a pointer two it's two 'child pairs' that get created once the assigned letter is inserted
+    2. Every step increase the count of all pairs according to the above rules.
+    3. Final letter counts are found by (a) Summing up each unique letter based on the pairs it appears in, and then dividing by 2 since each letter appears in 2 pairs.
+    4. The last adjustment is adding 1 to the counts for the first and last letters, since those will have only appeared in one pair each.
