@@ -1,0 +1,22 @@
+# Ignore Mac OS files
+.DS_Store
+
+# Ignore Pycharm files
+.idea
+.idea/*
+
+# Ignore compiled python
+*.py[co]
+
+# Ignore python virtual environments
+venv/*
+
+# Ignore normal input/output and config file types
+*.csv
+*.txt
+*.ini
+
+# Add below text files, exempt from above rule
+!requirements.txt
+!git_commands.txt
+!bash/useful_bash_cmds.txt
