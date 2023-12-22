@@ -1,6 +1,5 @@
 # Advent of Code 2021
 Advent of Code 2021 Solutions!
-Author: Ben Greene
 
 ## Welcome
 These are my notes on solving Advent of Code 2021. The challenges were only completed for fun.
