@@ -19,7 +19,13 @@ def p1():
         sum += int(utils.str_first_digit(l) + utils.str_last_digit(l))
     print(sum)
 
-# Part 2
+"""
+Part 2
+
+Now words can count as digits too. The tricky part was that words could overlap, and both were supposed to count.
+
+For example - threeightwo should count as "382", NOT 3igh2. Originally I had this wrong.
+"""
 def p2():
     # data = utils.read_input_strings('p2_test.txt')
     data = utils.read_input_strings('input.txt')

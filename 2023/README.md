@@ -8,3 +8,5 @@ These are my notes on solving Advent of Code 2023. I'm not a professional progra
 
 - See individual files for my notes on each solution
 - Normally I avoid "print debugging", but it is fast for the simple things. So I used it a lot for AOC
+- "cheats":
+    - Day 1 part 2 I looked at some solutions megathread
