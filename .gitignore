@@ -1,3 +1,7 @@
+# As requested by Eric Wastl, remove input files
+#https://www.reddit.com/r/adventofcode/wiki/faqs/copyright/inputs/
+input.txt
+
 # Ignore Mac OS files
 .DS_Store
 
